@@ -1,0 +1,52 @@
+{% extends "./homepage.html" %}
+
+{% block titulo %}
+Perfil
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block conteudo %}
+<div class="edit-profile">
+    <h1>Edit Profile</h1>
+    <form enctype="multipart/form-data" action="{% url 'reviews:editar_perfil' %}" method="post">
+        {% csrf_token %}
+        <div class="user-info">
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" value="{{ request.user.first_name }}"><br><br>
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" value="{{ request.user.last_name }}"><br><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" value="{{ request.user.email }}"><br><br>
+            <label for="current_password">Password:</label>
+            <div class="password-input">
+                <input type="password" id="current_password" name="current_password">
+                <button type="button" class="show-password" onclick="mostrarSenha('current_password')"><i
+                        class="fa fa-eye"></i></button>
+            </div>
+            <br><br>
+
+            <label for="new_password">New Password:</label>
+            <div class="password-input">
+                <input type="password" id="new_password" name="new_password">
+                <button type="button" class="show-password" onclick="mostrarSenha('new_password')"><i
+                        class="fa fa-eye"></i></button>
+            </div>
+            <br><br><br>
+
+
+            <div class="edit-user-pic">
+                <img src="{{ request.user.reviewer.photo }}" alt="Foto de perfil">
+            </div>
+            <br>
+        </div>
+
+        {% csrf_token %}
+        <input type="file" name="myfile"><br>
+
+        <input type="submit" class="save-upload-btns" value="Save changes"/>
+        <br><br>
+    </form>
+</div>
+{% endblock %}

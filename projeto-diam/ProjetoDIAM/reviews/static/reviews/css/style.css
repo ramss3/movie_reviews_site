@@ -1,0 +1,805 @@
+body {
+    background-color: #1b1919;
+    font-family: 'kumbh Sans', sans-serif;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.checkbox-btn {
+    position: absolute;
+    top: 0.625rem;
+    left: 0.625rem;
+    font-size: 12px;
+}
+
+::-webkit-scrollbar {
+    width: 0.5rem;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #d9d9d9;
+    border-radius: 0.5rem;
+    min-height: 7.5rem;
+}
+
+.user-profile,
+.profile-header,
+.following-box {
+    position: relative;
+}
+
+.dropdown-content {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    display: none;
+}
+
+.user-profile .dropdown-btn:hover + .dropdown-content,
+.user-profile .dropdown-content:hover {
+    display: block;
+}
+
+.user-profile .dropdown-btn.active + .dropdown-content {
+    display: block;
+}
+
+.review {
+    display: flex;
+    flex-direction: row;
+}
+
+.review-photo {
+    float: left;
+
+    margin-right: 1.111rem;
+    width: 3.722rem;
+    height: 5.444rem;
+}
+
+.search-review-photo {
+    width: 4.18rem;
+    height: 7.83rem;
+}
+
+.title-genre {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.genres-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.title-genre a {
+    color: #000000;
+    font-weight: bold;
+    margin-right: 0.889rem;
+}
+
+.genres-container a {
+    display: inline-block;
+    margin-right: 0.556rem;
+    color: #b0b0b0;
+    margin-top: 0.625rem;
+    margin-bottom: 0.625rem;
+
+}
+
+.title a {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+.logo {
+    position: absolute;
+    top: 0;
+    left: 2.5rem;
+    margin: 0.625rem;
+}
+
+.mainHeader {
+    position: relative;
+    background: #3a3838;
+    color: white;
+    padding: 0.625rem;
+    text-align: center;
+    max-width: 75rem;
+    margin: 0 auto;
+    border-top-left-radius: 1.25rem;
+    border-top-right-radius: 1.25rem;
+    border-bottom: 0.063rem solid #fdca22;
+    border-bottom-width: 0.5em;
+    font-size: 18px;
+}
+
+.mainHeader p {
+    display: inline-block;
+    margin-right: 13.889rem;
+    margin-left: 13.889rem;
+}
+
+.selected {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.foryou, .following-content, .review, .comments, .contact {
+    background-color: #5e5b5b;
+    padding: 0.625rem;
+    max-width: 75rem;
+    margin: 0 auto;
+    word-wrap: break-word;
+    color: #f1efef;
+    font-size: 18px;
+}
+
+.contact {
+    text-align: center;
+    border-bottom-right-radius: 1.25rem;
+    border-bottom-left-radius: 1.25rem;
+}
+
+
+.comments, .user-comments {
+    border-bottom-left-radius: 1.25rem;
+    border-bottom-right-radius: 1.25rem;
+}
+
+.stars {
+    display: inline;
+    background-color: white;
+    padding-bottom: 6.25rem;
+    padding-right: 0.625rem;
+}
+
+.star {
+    font-size: 30px;
+    color: gray;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star.selected {
+    color: #e8a803;
+}
+
+.comment-input-container {
+    width: 76.25rem;
+    display: flex;
+    position: relative;
+    border: none;
+    margin: 0 auto;
+    height: 6.25rem;
+    border-bottom: 0.313rem solid #fdca22;
+
+}
+
+.comment-input-container input[type="number"] {
+    width: 10%;
+    height: 100%;
+    padding: 0.625rem;
+}
+
+.comment-input-container input[type="text"] {
+    width: 100%;
+    flex: 1;
+    height: 100%;
+    box-sizing: border-box;
+    padding-left: 1.25rem;
+    border: none;
+}
+
+.comment-input-container button[type="submit"] {
+    position: absolute;
+    top: 2.813rem;
+    right: 1.563rem;
+    height: 40%;
+    padding: 0.625rem;
+    border-radius: 1.25rem;
+    background-color: #fdca22;
+    cursor: pointer;
+    width: 8%;
+}
+
+.username-design {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.username-design img {
+    margin-right: 0.625rem;
+}
+
+.foryou, .following-content {
+    border-bottom-left-radius: 1.25rem;
+    border-bottom-right-radius: 1.25rem;
+}
+
+.review, .profile {
+    border-top-left-radius: 1.25rem;
+    border-top-right-radius: 1.25rem;
+    border-bottom: 0.313rem solid #fdca22;
+}
+
+.review-main-div {
+    position: relative;
+    margin-right: 1.944rem;
+}
+
+.sidebar_button {
+    font-size: 20px;
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+.sidebar {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: -15.625rem;
+    width: 15.625rem;
+    max-height: 100%;
+    overflow-y: scroll;
+    background-color: #333;
+    color: #fff;
+    transition: left 0.5s ease-in-out;
+    text-align: left;
+}
+
+.sidebar p {
+    margin-left: 1.563rem;
+}
+
+
+.sidebar::-webkit-scrollbar {
+    width: 0rem;
+}
+
+.sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-left: 1.25rem;
+}
+
+.sidebar li {
+    padding: 0.563rem;
+    border-bottom: 0.063rem solid #444;
+
+}
+
+button#toggle-sidebar {
+    position: fixed;
+    z-index: 2;
+    top: 1.25rem;
+    left: 1.25rem;
+}
+
+.profile-btn, .login-btn, .logout-btn, .edit-profile-btn, .follow-unfollow-btn, .save-upload-btns, .create-review-btn {
+    position: absolute;
+    border-radius: 1.25rem;
+    padding: 0.313rem 0.625rem;
+}
+
+.profile-btn, .login-btn, .logout-btn, .edit-profile-btn {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+}
+
+.follow-unfollow-btn {
+    background-color: #000000;
+    color: #ffffff;
+    top: -1.25rem;
+    right: 0;
+}
+
+.save-upload-btns {
+    background-color: #000000;
+    color: #ffffff;
+    margin-top: 1.25rem;
+    left: 13.75rem;
+}
+
+.login-btn {
+    top: 0.938rem;
+    right: 1.25rem;
+}
+
+.username {
+    color: white;
+    position: fixed;
+    top: 1.25rem;
+    right: 5rem;
+}
+
+.profile-btn {
+    top: 5.313rem;
+    right: 0.625rem;
+}
+
+.logout-btn {
+    right: 0.625rem;
+    top: 7.813rem;
+}
+
+.edit-profile-btn {
+    top: 2rem;
+    right: 10.625rem;
+    padding: 0.313rem 0.938rem;
+}
+
+.profile, .user-comments, .edit-profile, .create-review {
+    flex-direction: column;
+    background-color: #f2f2f2;
+    padding: 1.25rem;
+    max-width: 31.25rem;
+}
+
+.create-review {
+    margin: 0 auto;
+    position: absolute;
+
+}
+
+.create-review input[type="text"],
+.create-review input[type="file"] {
+    display: inline-block;
+    width: 18.75rem;
+    margin-bottom: 0.625rem;
+
+}
+
+.create-review input[type="submit"] {
+    display: block;
+    margin: 0 auto;
+}
+
+#opcoesCheckbox {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    background-color: white;
+    border: 0.063rem solid #ccc;
+    padding: 0.625rem;
+}
+
+.user-comments {
+    text-align: center;
+    max-width: 31.25rem;
+    margin: -12.5rem auto;
+    clear: both;
+
+}
+
+.between-comments p:not(.user-comments-date), .title-genre, .overview, .overview-review {
+    text-align: justify;
+}
+
+.overview-review {
+    margin-top: 3.125rem;
+    margin-right: 2.5rem;
+}
+
+.user-comments-date, .rating {
+    position: absolute;
+    right: -1.25rem;
+    top: -1.25rem;
+}
+
+.rating {
+    margin-right: 1.875rem;
+}
+
+.homepage-review, .following-box {
+    position: relative;
+    border-bottom: 0.0556rem solid black;
+    margin-bottom: 1.1111rem;
+    margin-right: 1.6667rem;
+}
+
+.between-comments {
+    position: relative;
+    border-bottom: 0.0625rem solid black;
+    margin-bottom: 1.25rem;
+    margin-right: 1.875rem;
+}
+
+.between-comments:last-child {
+    border-bottom: none;
+}
+
+.user-profile-pic {
+    display: flex;
+    align-items: center;
+    margin-top: -0.625rem;
+    margin-left: 0;
+}
+
+.user-profile-pic img {
+    margin-right: 0.625rem;
+}
+
+.user-info {
+    text-align: left;
+    margin-top: 2.5rem;
+    margin-left: 16.25rem;
+}
+
+.user-info-pic {
+    margin-top: -6.875rem;
+    margin-bottom: 1.875rem;
+    margin-left: 3.75rem;
+}
+
+.user-info-pic img {
+    width: 7.5rem;
+    height: 7.5rem;
+}
+
+.edit-user-pic {
+    margin-top: -17.5rem;
+    margin-bottom: 7.5rem;
+    margin-left: -12.5rem;
+}
+
+.edit-user-pic img {
+    width: 7.5rem;
+    height: 7.5rem;
+}
+
+.profile,
+.edit-profile,
+.create-review {
+    border-top: 0.125rem solid #fdca22;
+    border-top-width: 0.03125rem;
+    border-top-left-radius: 0.625rem;
+    border-top-right-radius: 0.625rem;
+    margin: 12.5rem auto;
+}
+
+.edit-profile,
+.create-review {
+    border-bottom-left-radius: 0.625rem;
+    border-bottom-right-radius: 0.625rem;
+    text-align: center;
+    position: relative;
+}
+
+.edit-profile h1,
+.create-review h1 {
+    text-align: center;
+}
+
+.edit-profile button,
+.create-review button {
+    margin-top: 0.625rem;
+}
+
+.profile h1 {
+    font-size: 2rem;
+    margin-bottom: 1.25rem;
+    text-align: center;
+}
+
+.profile a {
+    font-size: 1.125rem;
+    margin-bottom: 0.625rem;
+}
+
+.create-review-btn {
+    position: absolute;
+    top: 1.875rem;
+    right: 11.25rem;
+    color: #000000;
+    background-color: #fdca22;
+    font-weight: bold;
+}
+
+.profile-pic {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    text-align: right;
+}
+
+.pic {
+    border-radius: 50%;
+    width: 3.125rem;
+    height: 3.125rem;
+}
+
+.search-container,
+.search-results-movies,
+.search-results-reviewers {
+    margin-top: 1.875rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    font-size: 1.125rem;
+}
+
+.search-review {
+    width: 18.75rem;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.search-title {
+    margin-top: 0.556rem;
+    text-align: center;
+
+}
+
+.search-profile-pic {
+    text-align: center;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    padding: 1.563rem;
+    margin-bottom: 1.563rem;
+}
+
+.search-bar {
+    top: 3.125rem;
+}
+
+.search-bar input[type="text"] {
+    width: 25rem;
+    box-sizing: border-box;
+    border: 0.125rem solid #ccc;
+    border-radius: 1.25rem;
+    outline: none;
+    font-size: 1rem;
+}
+
+.search-bar button[type="submit"] {
+    border-radius: 1.25rem;
+}
+
+.search-bar button[type="submit"] i {
+    color: #999;
+    font-size: 18px;
+}
+
+.search-bar button[type="submit"]:hover i {
+    color: #333;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+
+h2 {
+    color: #fdca22;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 0.25rem solid #ffffff;
+    border-radius: 1.25rem;
+    padding: 3.75rem;
+    max-width: 50rem;
+    color: #ffffff;
+    background-color: #5f5757;
+    font-size: 1rem;
+}
+
+.form-submit-button {
+    background: #c5c5c5;
+    color: #000000;
+    border-style: outset;
+    border-color: #ffffff;
+    border-radius: 1.25rem;
+    height: 1.875rem;
+    width: 4.375rem;
+    font: 1rem Arial, sans-serif;
+    text-shadow: none;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.625rem;
+}
+
+.form-group input[type="checkbox"] {
+    display: none;
+}
+
+.form-group label {
+    margin-bottom: 0.3125rem;
+    margin-top: 0.3125rem;
+    display: inline-block;
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    padding: 0.3125rem;
+    border-radius: 0.3125rem;
+    border: 0.0625rem solid #ffffff;
+}
+
+.form-group input[type="checkbox"] {
+    margin-right: 0.3125rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.delete-button, .delete-button-rvw {
+    border: none;
+    position: absolute;
+    background-color: transparent;
+    right: 0rem;
+    bottom: 0.378rem;
+}
+
+.delete-button {
+    color: #1b1919;
+}
+
+.delete-button-rvw {
+    color: white;
+}
+
+.show-password {
+    border: none;
+    background-color: transparent;
+}
+
+.password-input {
+    position: relative;
+    display: inline-block;
+}
+
+.password-input .show-password {
+    position: absolute;
+    top: 3%;
+    right: 0rem;
+    transform: translateY(-50%);
+}
+
+/* Footer CSS */
+
+.footer-container {
+    background-color: #131313;
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-logo {
+    color: #fff;
+    display: flex;
+    text-decoration: none;
+    font-size: 2rem;
+    justify-content: center;
+}
+
+.footer-links {
+    width: 100%;
+    max-width: 62.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-link-wrapper {
+    display: flex;
+}
+
+.footer-link-items {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 1rem;
+    width: 10rem;
+
+}
+
+.footer-link-items h2 {
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.footer-link-items a {
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.footer-link-items a:hover {
+    color: #e9e9e9;
+    transition: 0.3s ease-in-out;
+}
+
+.social-media {
+    max-width: 62.5rem;
+    width: 100%;
+}
+
+.social-media-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 62.5rem;
+    margin: 2.5rem auto 0 auto;
+}
+
+.website-rights {
+    color: #fff;
+    text-align: center;
+}
+
+@media screen and (max-width: 820px) {
+    .footer-links {
+        padding-top: 2rem;
+    }
+
+    #footer-logo {
+        margin-bottom: 2rem;
+    }
+
+    .website-rights {
+        margin-bottom: 2rem;
+    }
+
+    .footer-link-wrapper {
+        flex-direction: column;
+    }
+
+    .social-media-wrap {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer-link-items {
+        margin: 0;
+        padding: 0.625rem;
+        width: 100%;
+    }
+}

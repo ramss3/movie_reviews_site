@@ -1,0 +1,38 @@
+{% extends "./homepage.html" %}
+
+{% block titulo %}
+Create Review
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block conteudo %}
+<div class="create-review">
+
+    <h2>Crie Review</h2>
+    <form method="post" enctype="multipart/form-data" action="{% url 'reviews:createreview' %}">
+        {% csrf_token %}
+        <label for="review_title">Title:</label>
+        <input type="text" id="review_title" name="review_title"><br><br>
+        <label for="pub_data">Publication Year:</label>
+        <input type="number" id="pub_data" name="pub_data"><br><br>
+        <label for="opcoesSelecionadas">Category:</label>
+        <input type="text" id="opcoesSelecionadas" name="opcoesSelecionadas" readonly onclick="exibirOpcoes()">
+        <br>
+        <div id="opcoesCheckbox" style="display: none;">
+            {% for genre in gender_list %}
+            <input type="checkbox" id="opcao{{ genre.gender_category }}" name="opcoes"
+                   value="{{ genre.gender_category }}" onclick="atualizarOpcoesSelecionadas()">
+            <label for="opcao{{ genre.gender_category }}">{{ genre.gender_category }}</label>
+            <br>
+            {% endfor %}
+        </div>
+        <label for="overview">Overview:</label>
+        <input type="text" id="overview" name="overview"><br><br>
+        {% csrf_token %}
+        <input type="file" name="myfile"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+{% endblock %}

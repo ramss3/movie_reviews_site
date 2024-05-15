@@ -1,0 +1,79 @@
+{% extends "./homepage.html" %}
+
+{% block titulo %}
+Search Results
+{% endblock %}
+{% block conteudo %}
+
+{% if search %}
+<ul>
+    {% if search_reviews %}
+    <div class="mainHeader" id="movies">
+        <div class="checkbox-btn">
+            <input type="checkbox" id="moviescheck">
+            <label for="moviescheck">Hide</label>
+        </div>
+
+        <p>Movies:</p>
+    </div>
+    <div class="foryou">
+        <div class="search-results-movies">
+            {% for review in search_reviews %}
+            <div class="search-review">
+                <a href="{% url 'reviews:review' review.id %}">
+                    <img src="{{ review.photo }}">
+                    <div class="search-title">{{ review.review_title }}</div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if search_reviewers %}
+    <br><br>
+    <div class="mainHeader" id="reviewers">
+        <div class="checkbox-btn">
+            <input type="checkbox" id="reviewerscheck">
+            <label for="reviewerscheck">Hide</label>
+        </div>
+        <p>Reviewers:</p>
+    </div>
+    <div class="foryou">
+        <div class="search-results-reviewers">
+            {% for reviewer in search_reviewers %}
+            <div class="search-review">
+                <a href="{% url 'reviews:profile' reviewer.id %}" class="user-profile-pic">
+                    <img src="{{ reviewer.photo }}" class="pic search-profile-pic">
+                    {{ reviewer.user.username }}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if search_gender %}
+    <div class="mainHeader" id="gender">
+        <div class="checkbox-btn">
+            <input type="checkbox" id="genrecheck">
+            <label for="genrecheck">Hide</label>
+        </div>
+
+        <p> {{ search }} movies:</p>
+    </div>
+    <div class="foryou">
+
+        <div class="search-container">
+            {% for review in search_gender %}
+            <div class="search-review">
+                <a href="{% url 'reviews:review' review.id %}">
+                    <img src="{{ review.photo }}">
+                    <div class="search-title">{{ review.review_title }}</div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</ul>
+{% endif %}
+{% endblock %}

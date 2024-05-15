@@ -1,0 +1,70 @@
+{% extends "./homepage.html" %}
+
+{% block titulo %}
+    Perfil
+{% endblock %}
+
+{% block header %}
+    {% if request.user.is_authenticated %}
+        {% if request.user.reviewer.id == reviewer.id %}
+            <a href="{% url 'reviews:editar_perfil' %}" class="edit-profile-btn">Edit</a>
+        {% else %}
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block conteudo %}
+    <div class="profile">
+        <div class="profile-header">
+            {% if request.user.reviewer.id != reviewer.id and request.user.is_authenticated %}
+                {% if exists %}
+                    <a href="{% url 'reviews:unfollow' reviewer.id %}" class="follow-unfollow-btn">Unfollow</a>
+                {% else %}
+                    <a href="{% url 'reviews:follow' reviewer.id %}" class="follow-unfollow-btn">Follow</a>
+                {% endif %}
+            {% endif %}
+            <h1>Username: {{ reviewer.user.username }}</h1>
+        </div>
+        <br>
+        <div class="user-info">
+            <a>Email: {{ reviewer.user.email }}</a>
+            <br>
+            <a>First Name: {{ reviewer.user.first_name }}</a>
+            <br>
+            <a>Last Name: {{ reviewer.user.last_name }}</a>
+            <br><br>
+        </div>
+        <div class="user-info-pic">
+            <img src="{{ reviewer.photo }}" alt="Foto de perfil">
+        </div>
+    </div>
+
+    <div class="user-comments">
+        {% for comment in user_comments %}
+            <div class="between-comments">
+                <a href="{% url 'reviews:profile' reviewer.id %}" class="user-profile-pic">
+                    <img src="{{ comment.reviewer.photo }}" class="pic">
+                    {{ comment.reviewer.user.username }}
+                </a>
+                <br>
+                <a href="{% url 'reviews:review' comment.review.id %}"><strong>{{ comment.review.review_title }}</strong></a>
+                <p class="user-comments-date">{{ comment.pub_data }}</p>
+                <p>{{ comment.comment_text }}</p>
+                {% for rating in comment.review.rating_set.all %}
+                    {% if rating.reviewer.id == comment.reviewer.id %}
+                        <p>Rating: {{ rating.rating_number }}</p>
+                    {% endif %}
+                {% endfor %}
+                {% if request.user.is_superuser or request.user.username == comment.reviewer.user.username %}
+                    <form action="{% url 'reviews:deletecomment' comment.id %}" method="get">
+                        <button type="submit" class="delete-button">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "./homepage.html" %}
+
+{% block titulo %}
+    Login
+{% endblock %}
+
+{% block header %} {% endblock %}
+
+{% block profile %} {%  endblock %}
+
+{% block conteudo %}
+    <script>
+        {% if error_message %}
+            window.alert("{{ error_message }}")
+        {% endif %}
+    </script>
+
+    <div class="container">
+        <form id="login-form" class="form" action="{% url 'reviews:loginview' %}" method="post">
+            {% csrf_token %}
+            <h2>Login</h2>
+
+            <label for="username">Nome de utilizador:</label>
+            <input type="text" id="username" name="username"><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password"><br>
+            <button class="form-submit-button" type="submit">Login</button>
+            <h4>Ainda não tem conta?</h4>
+            <div class="form-group">
+                <input type="checkbox" id="register-checkbox">
+                <label for="register-checkbox">Registe-se aqui!</label>
+            </div>
+        </form>
+
+        <form id="register-form" class="form hidden" action="{% url 'reviews:registerview' %}" method="post">
+            {% csrf_token %}
+            <h2>Registo</h2>
+            <label for="new_username">Nome de utilizador:</label>
+            <input type="text" id="new_username" name="new_username"><br>
+            <label for="first_name">Nome:</label>
+            <input type="text" id="first_name" name="first_name"><br>
+            <label for="last_name">Apelido:</label>
+            <input type="text" id="last_name" name="last_name"><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email"><br>
+            <label for="new_password">Password:</label>
+            <input type="password" id="new_password" name="new_password"><br>
+            <button class="form-submit-button" type="submit">Registo</button>
+            <h4>Já tem conta?</h4>
+            <div class="form-group">
+                <input type="checkbox" id="login-checkbox">
+                <label for="login-checkbox">Faça o seu Login.</label>
+            </div>
+        </form>
+    </div>
+{% endblock %}

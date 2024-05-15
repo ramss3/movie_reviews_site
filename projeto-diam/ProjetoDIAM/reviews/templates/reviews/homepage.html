@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>
+        {% block titulo %}
+            FlixFeed
+        {% endblock %}
+    </title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'reviews/css/style.css' %}?{% now "U" %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'reviews/css/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="{% static 'reviews/scripts/script.js' %}?{% now "U" %}"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com%22%3E/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        <a href="{% url 'reviews:homepage' %}">
+            <img src="/static/reviews/media/flixfeed.png" alt="symbol" width="150px" height="50px">
+        </a>
+    </div>
+
+    {% block header %}
+        <div class="search-bar">
+            <form method="post" action="{% url 'reviews:search' %}">
+                {% csrf_token %}
+                <input type="text" id="search" name="search" placeholder="Search...">
+                <button type="submit"><i></i>Search</button>
+            </form>
+        </div>
+
+        <div class="sidebar">
+            <br><br><br>
+            <p>Genres:</p>
+            <ul>
+                {% for gender in gender_list %}
+                    <li>
+                        <a href="{% url 'reviews:search_gender' gender.id %}">{{ gender.gender_category }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <button class="sidebar_button" id="toggle-sidebar">&#9776;</button>
+    {% endblock %}
+
+    {% block profile %}
+
+        {% if request.user.is_authenticated %}
+            <ul>
+                <li class="user-profile">
+                    <div class="dropdown">
+                        <p class="username">{{ request.user.username }}</p>
+                        <img src="{{ request.user.reviewer.photo }}" class="profile-pic pic" alt="Foto de perfil"
+                             width="50px"
+                             height="50px">
+                        <div class="dropdown-content">
+                            <a href="{% url 'reviews:profile' request.user.reviewer.id %}"
+                               class="profile-btn">Profile</a>
+                            <a href="{% url 'reviews:logoutview' %}" class="logout-btn">Logout</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        {% else %}
+            <ul>
+                <li>
+                    <a href="{% url 'reviews:login_register' %}" class="login-btn">Login</a>
+                </li>
+            </ul>
+        {% endif %}
+    {% endblock %}
+</header>
+
+<main>
+
+    {% block conteudo %}
+        {% if request.user.is_superuser %}
+            <a href="{% url 'reviews:createreview' %}" class="create-review-btn">Add Movie</a>
+        {% endif %}
+
+        <div class="mainHeader">
+            <p class="selected" id="toggle-foryou">For you</p>
+            {% if request.user.is_authenticated %}
+                <p id="toggle-following">Following</p>
+            {% endif %}
+        </div>
+
+        <div class="foryou">
+            {% if latest_review_list %}
+                <ul>
+                    {% for review in latest_review_list %}
+                        <li>
+                            <div class="homepage-review">
+                                <img src="{{ review.photo }}" class="review-photo">
+                                <div class="title-genre">
+                                    <a href="{% url 'reviews:review' review.id %}"> {{ review.review_title }} </a>
+                                    <div class="genres-container">
+                                        {% for gender in review.gender_set.all %}
+                                            <a href="{% url 'reviews:search_gender' gender.id %}">{{ gender.gender_category }}
+                                                {% if not forloop.last %}, {% endif %}</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <br>
+                                <p class="overview"><strong>Overview:</strong> {{ review.overview }}</p>
+                                <p class="rating">Rating: {{ review.avg_rating }}</p><br>
+                                {% if request.user.is_superuser %}
+                                    <form action="{% url 'reviews:deletereview' review.id %}" method="get">
+                                        <button type="submit" class="delete-button-rvw">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>There are no reviews available.</p>
+            {% endif %}
+        </div>
+
+        {% if request.user.is_authenticated %}
+            <div class="following-content">
+                <ul>
+                    {% for comment in following_comments %}
+                        <li>
+                            <div class="following-box">
+                                <a href="{% url 'reviews:profile' comment.reviewer.id %}" class="user-profile-pic">
+                                    <img src="{{ comment.reviewer.photo }}" class="pic">
+                                    {{ comment.reviewer.user.username }}
+                                </a>
+                                <br>
+                                <a href="{% url 'reviews:review' comment.review.id %}"><strong>{{ comment.review.review_title }}</strong></a>
+                                <p class="user-comments-date">{{ comment.pub_data }}</p>
+                                <p>{{ comment.comment_text }}</p>
+                                {% for rating in comment.review.rating_set.all %}
+                                    {% if rating.reviewer.id == comment.reviewer.id %}
+                                        <p>Rating: {{ rating.rating_number }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if request.user.is_superuser %}
+                                    <form action="{% url 'reviews:deletecomment' comment.id %}" method="get">
+                                        <button type="submit" class="delete-button-rvw">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <br><br><br>
+
+        </main>
+
+        <footer>
+            <div class="footer-container">
+                <div class="footer-links">
+                    <div class="footer-link-wrapper">
+                        <div class="footer-link-items">
+                            <h2>About Us</h2>
+                            <a href="{% url 'reviews:aboutus' %}">How it works</a>
+                            <a href="{% url 'reviews:termsofservice' %}">Terms of Service</a>
+                        </div>
+                        <div class="footer-link-items">
+                            <h2>Contact Us</h2>
+                            <a href="{% url 'reviews:contact' %}">Contact</a>
+                        </div>
+                    </div>
+                </div>
+                <div class=" social-media">
+                    <div class="social-media--wrap">
+                        <p class="footer-logo"> FlixFeed</p>
+                        <p class="website-rights">© FlixFeed 2023. All rights reserved</p>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+        </body>
+    {% endblock %}
+</html>
